@@ -34,4 +34,12 @@ public class EndTurn : MonoBehaviour{
         SummonZones.Clear();
         
     }
+
+    public void summon()
+    {
+        foreach(GameObject x in ZoneList.PlayerSummon)
+        {
+            x.GetComponent<Summon>().canSummon = true;
+        }
+    }
 }
