@@ -6,6 +6,8 @@ public class Summon : MonoBehaviour {
     public GameObject monster;
     public Camera camera;
     public bool summoned;
+    private Vector3 mouse_position, world_position;
+    float distance = 10f;
 
     // Use this foinitialization
     void Start () {
@@ -15,14 +17,19 @@ public class Summon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       
+        mouse_position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
+
+        world_position = camera.ScreenToWorldPoint(mouse_position);
+        
+        Debug.Log("x = " + world_position.x + " y = " + world_position.y+" z = "+mouse_position.z);
+        
 	}
 
-    void OnMouseUp()
+    public void OnMouseUp()
     {
         if (!summoned)
         {
-            if (camera.ScreenToWorldPoint(Input.mousePosition).x < 0)
+            if (world_position.x < 0)
             {
                 Debug.Log("Player Summon");
                 GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
