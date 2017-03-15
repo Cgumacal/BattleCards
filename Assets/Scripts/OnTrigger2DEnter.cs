@@ -19,8 +19,8 @@ public class OnTrigger2DEnter : MonoBehaviour {
 		Debug.Log (col.gameObject.name);
 
 		if (col.gameObject.name.Contains("player")) {
-			EndTurn.EnemyUnits.Remove (col.gameObject);
-			EndTurn.PlayerUnits.Remove (col.gameObject);
+			GameLists.EnemyUnits.Remove (col.gameObject);
+			GameLists.PlayerUnits.Remove (col.gameObject);
 			Destroy (col.gameObject);
 			GetComponent<Unit>().health -= col.gameObject.GetComponent<Unit>().dmg;
 		}

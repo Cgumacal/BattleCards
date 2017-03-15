@@ -19,10 +19,10 @@ public class Summon : MonoBehaviour {
        
 	}
 
-    void OnMouseUp()
+    public void OnMouseUp()
     {
 
-        if (canSummon)
+        if (!canSummon)
         {
             if (!summoned)
             {
@@ -31,18 +31,18 @@ public class Summon : MonoBehaviour {
                     Debug.Log("Player Summon");
                     GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
                     unit.GetComponent<Unit>().master = 1;
-                    EndTurn.PlayerUnits.Add(unit);
+                    GameLists.PlayerUnits.Add(unit);
                     summoned = true;
-                    EndTurn.SummonZones.Add(this.gameObject);
+                    //EndTurn.SummonZones.Add(this.gameObject);
                 }
                 else
                 {
                     Debug.Log("Enemy Summon");
                     GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
-                    EndTurn.EnemyUnits.Add(unit);
+                    GameLists.EnemyUnits.Add(unit);
                     unit.GetComponent<Unit>().master = 2;
                     summoned = true;
-                    EndTurn.SummonZones.Add(this.gameObject);
+                    //EndTurn.SummonZones.Add(this.gameObject);
                     //Debug.Log(camera.ScreenToWorldPoint(Input.mousePosition));
                 }
             }
