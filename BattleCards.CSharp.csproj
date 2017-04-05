@@ -173,6 +173,7 @@
     <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
     <Compile Include="Assets\RandomMatchmaking.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
+    <Compile Include="Assets\Scripts\Card.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\Drop.cs" />
     <Compile Include="Assets\Scripts\EndTurn.cs" />
