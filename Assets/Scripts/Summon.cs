@@ -16,10 +16,10 @@ public class Summon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       
-	}
+        
+    }
 
-    void OnMouseUp()
+     public void OnMouseUp()
     {
 
         if (canSummon)
@@ -34,6 +34,11 @@ public class Summon : MonoBehaviour {
                     EndTurn.PlayerUnits.Add(unit);
                     summoned = true;
                     EndTurn.SummonZones.Add(this.gameObject);
+                    foreach (GameObject zone in ZoneList.PlayerSummon)
+                    {
+                        Debug.Log(zone.name + "trying to see if false");
+                        if (zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = false;
+                    }
                 }
                 else
                 {
@@ -45,6 +50,7 @@ public class Summon : MonoBehaviour {
                     EndTurn.SummonZones.Add(this.gameObject);
                     //Debug.Log(camera.ScreenToWorldPoint(Input.mousePosition));
                 }
+                
             }
         }
     }
