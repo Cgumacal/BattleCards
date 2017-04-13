@@ -22,18 +22,29 @@ public class Summon : MonoBehaviour {
     public void OnMouseUp()
     {
 
-        if (!canSummon)
+        if (canSummon)
         {
             if (!summoned)
             {
                 if (camera.ScreenToWorldPoint(Input.mousePosition).x < 0)
                 {
+                   
                     Debug.Log("Player Summon");
                     GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
                     unit.GetComponent<Unit>().master = 1;
                     GameLists.PlayerUnits.Add(unit);
                     summoned = true;
-                    //EndTurn.SummonZones.Add(this.gameObject);
+                    GameLists.SummonZones.Add(this.gameObject);
+                    foreach (GameObject zone in GameLists.PlayerSummon)
+                    {
+                        Debug.Log(zone.name + "trying to see if false");
+                        if (zone.GetComponent<Summon>().canSummon)
+                        {
+                            zone.GetComponent<Summon>().canSummon = false;
+                        }
+                    }
+
+
                 }
                 else
                 {
