@@ -21,14 +21,23 @@ Platform assembly: C:\Users\Christian\Documents\BattleCards\networktest_Data\Man
 Loading C:\Users\Christian\Documents\BattleCards\networktest_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Christian\Documents\BattleCards\networktest_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading C:\Users\Christian\Documents\BattleCards\networktest_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
-- Completed reload, in  0.198 seconds
+- Completed reload, in  0.192 seconds
 Platform assembly: C:\Users\Christian\Documents\BattleCards\networktest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Christian\Documents\BattleCards\networktest_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.696932 ms
+The file 'C:/Users/Christian/Documents/BattleCards/networktest_Data/level0' is corrupted! Remove it and launch unity again!
+[Position out of bounds!]
+ 
+(Filename:  Line: 220)
+
+UnloadTime: 3.917736 ms
+ card start
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 added Summon Zone (3)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -57,15 +66,15 @@ added Summon Zone (2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
- card start
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
 Operation failed: OperationResponse 225: ReturnCode: 32760 (No match found). Parameters: {}
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 cant join room creating one now
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+The observed monobehaviour (ListSystem) of this PhotonView does not implement OnPhotonSerializeView()!
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -129,53 +138,17 @@ battle start
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-mouse as button up working
+movement ends
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Summon Zone (3)trying to see if true
+battle start
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Summon Zone (4)trying to see if true
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zone (1)trying to see if true
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zonetrying to see if true
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zone (2)trying to see if true
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Player Summon
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zone (3)trying to see if false
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zone (4)trying to see if false
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zone (1)trying to see if false
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zonetrying to see if false
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Summon Zone (2)trying to see if false
+8
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1974 -> priority: 1 
+  Thread -> id: 2390 -> priority: 1 

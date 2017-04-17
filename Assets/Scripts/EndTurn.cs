@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndTurn : MonoBehaviour
+public class EndTurn : Photon.MonoBehaviour
 {
     private RaycastHit2D hit;
     private List<GameObject> movement = new List<GameObject>();
@@ -24,8 +24,9 @@ public class EndTurn : MonoBehaviour
 	public Slider playerHealthBar;
     private static GameObject ownedPlayer;
 
-    private bool playerEnd = false;
-    private bool enemyEnd = false;
+    public bool playerEnd = false;
+    public bool enemyEnd = false;
+    public bool hasEnded = false;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class EndTurn : MonoBehaviour
 		enemyHealthBar.value = CalculatedEnemyHealth();
 		//Player health bar shows initial value of health at the start of the match
 		playerHealthBar.value = CalculatedPlayerHealth();
+
     }
 
     public static void setOwnedPlayer(GameObject player)
@@ -56,18 +58,25 @@ public class EndTurn : MonoBehaviour
     /// </summary>
     /// 
     [PunRPC]
-    public void endTurn()
+    public void singleEndTurn()
     {
-        if(ownedPlayer.GetComponent<Player>().playerID == 1)
+        if (!playerEnd)
         {
             playerEnd = true;
         }
-        else if(ownedPlayer.GetComponent<Player>().playerID == 2)
+        else
         {
             enemyEnd = true;
         }
-        
+    }
 
+    public void endTurn()
+    {
+        if (!hasEnded)
+        {
+            hasEnded = true;
+            this.photonView.RPC("singleEndTurn", PhotonTargets.All);
+        }
     }
     /// <summary>
     /// applies all of the magic cards that were played 
@@ -306,6 +315,10 @@ public class EndTurn : MonoBehaviour
         {
             x.GetComponent<Summon>().resetSummon();
         }
+
+        playerEnd = false;
+        enemyEnd = false;
+        hasEnded = false;
     }
 
 	//Calculates the enemy's remaining health for the health bar
