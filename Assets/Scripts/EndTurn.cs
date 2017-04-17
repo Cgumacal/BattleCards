@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndTurn : MonoBehaviour
 {
@@ -16,9 +17,20 @@ public class EndTurn : MonoBehaviour
     public GameObject winnerPanel;
     public GameObject loserPanel;
 
+	public float maxHealth;
+	public Text enemyHealthBarText;
+	public Slider enemyHealthBar;
+	public Text playerHealthBarText;
+	public Slider playerHealthBar;
+
     void Start()
     {
-
+		//Sets the max health that both players can have in a match
+		maxHealth = 10f;
+		//Enemy health bar shows initial value of health at the start of the match
+		enemyHealthBar.value = CalculatedEnemyHealth();
+		//Player health bar shows initial value of health at the start of the match
+		playerHealthBar.value = CalculatedPlayerHealth();
     }
     /// <summary>
     /// This function is called after both players hit end turn
@@ -202,8 +214,8 @@ public class EndTurn : MonoBehaviour
             {
                 //do damage to player king
                 enemyKing.GetComponent<Unit>().health -= current.dmg;
-                //remove from list
-                //kingDamage.Remove(x.gameObject);
+                //health reduced in enemy health bar
+				enemyHealthBar.value = CalculatedEnemyHealth();
                 //destroy unit
                 Destroy(x.gameObject);
             }
@@ -211,8 +223,8 @@ public class EndTurn : MonoBehaviour
             {
                 //do damage to player king
                 playerKing.GetComponent<Unit>().health -= current.dmg;
-                //remove from list
-                //kingDamage.Remove(x.gameObject);
+				//health reduced in player health bar
+				playerHealthBar.value = CalculatedPlayerHealth();
                 //destroy unit
                 Destroy(x.gameObject);
             }
@@ -266,4 +278,38 @@ public class EndTurn : MonoBehaviour
             x.GetComponent<Summon>().resetSummon();
         }
     }
+
+	//Calculates the enemy's remaining health for the health bar
+	float CalculatedEnemyHealth()
+	{
+		//Gets the float value of the remaining health of the enemy
+		float calcEnemyHealth = enemyKing.GetComponent<Unit>().health / maxHealth;
+		//sets the text of enemy health bar to an integer format by multiplying by 10 and then converting to a string
+		if (calcEnemyHealth < 0) //doesn't display a negative number for the health
+		{
+			enemyHealthBarText.text = "0";
+			return 0;
+		} 
+		else {
+			enemyHealthBarText.text = (calcEnemyHealth * 10).ToString ();
+			return calcEnemyHealth;
+		}
+	}
+
+	//Calculates the player's remaining health for the health bar
+	float CalculatedPlayerHealth()
+	{
+		//Gets the float value of the remaining health of the player
+		float calcPlayerHealth = playerKing.GetComponent<Unit>().health / maxHealth;
+		//sets the text of player health bar to an integer format by multiplying by 10 and then converting to a string
+		if (calcPlayerHealth < 0) //doesn't display a negative number for the health
+		{
+			playerHealthBarText.text = "0";
+			return 0;
+		} 
+		else {
+			playerHealthBarText.text = (calcPlayerHealth * 10).ToString ();
+			return calcPlayerHealth;
+		}
+	}
 }
