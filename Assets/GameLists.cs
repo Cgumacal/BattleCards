@@ -14,6 +14,9 @@ public class GameLists : MonoBehaviour {
     public static List<GameObject> DeckOpponent = new List<GameObject>();
     public List<GameObject> Player = new List<GameObject>();
     public List<GameObject> Enemy = new List<GameObject>();
+
+    public static GameObject selectedCard = null;
+
     // Use this for initialization
     void Start () {
         Summon[] summon = GameObject.FindObjectsOfType<Summon>();
