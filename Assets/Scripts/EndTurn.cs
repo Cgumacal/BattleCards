@@ -22,6 +22,10 @@ public class EndTurn : MonoBehaviour
 	public Slider enemyHealthBar;
 	public Text playerHealthBarText;
 	public Slider playerHealthBar;
+    private static GameObject ownedPlayer;
+
+    private bool playerEnd = false;
+    private bool enemyEnd = false;
 
     void Start()
     {
@@ -32,12 +36,37 @@ public class EndTurn : MonoBehaviour
 		//Player health bar shows initial value of health at the start of the match
 		playerHealthBar.value = CalculatedPlayerHealth();
     }
+
+    public static void setOwnedPlayer(GameObject player)
+    {
+        ownedPlayer = player;
+    }
+
+    void Update()
+    {
+        if (playerEnd && enemyEnd)
+        {
+            magicPhase();
+        }
+    }
+    
+
     /// <summary>
     /// This function is called after both players hit end turn
     /// </summary>
+    /// 
+    [PunRPC]
     public void endTurn()
     {
-        magicPhase();
+        if(ownedPlayer.GetComponent<Player>().playerID == 1)
+        {
+            playerEnd = true;
+        }
+        else if(ownedPlayer.GetComponent<Player>().playerID == 2)
+        {
+            enemyEnd = true;
+        }
+        
 
     }
     /// <summary>

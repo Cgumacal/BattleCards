@@ -18,8 +18,6 @@ public class RandomMatchmaking : Photon.PunBehaviour {
     public void OnJoinedLobby()
     {
         PhotonNetwork.JoinRandomRoom();
-        GameObject.FindGameObjectWithTag("Enemy").GetComponent<Player>().playerID = 2;
-
     }
 
     void OnPhotonRandomJoinFailed()
@@ -29,14 +27,21 @@ public class RandomMatchmaking : Photon.PunBehaviour {
         roomOptions.IsVisible = true;
         roomOptions.MaxPlayers = 2;
         PhotonNetwork.CreateRoom(null, roomOptions, null);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerID = 1;
+        //GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerID = 1;
     }
 
-    /*public void OnJoinedRoom()
+    public void OnJoinedRoom()
     {
-        Debug.Log(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerID);
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerID == 1) {
-            PhotonNetwork.Instantiate("ListSystem", Vector3.zero, Quaternion.identity, 0);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerID = 1;
+        GameObject.FindGameObjectWithTag("Enemy").GetComponent<Player>().playerID = 2;
+
+        if (PhotonNetwork.isMasterClient)
+        {
+            EndTurn.setOwnedPlayer(GameObject.FindGameObjectWithTag("Player"));
+        }else
+        {
+            EndTurn.setOwnedPlayer(GameObject.FindGameObjectWithTag("Enemy"));
         }
-    }*/
+
+    }
 }
