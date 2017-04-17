@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Summon : MonoBehaviour {
     public GameObject monster;
@@ -32,6 +33,7 @@ public class Summon : MonoBehaviour {
                     Debug.Log("Player Summon");
                     GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
                     unit.GetComponent<Unit>().master = 1;
+                    unit.GetComponent<SpriteRenderer>().sprite = GameLists.selectedCard.GetComponent<Card>().monsterGraphic;
                     GameLists.PlayerUnits.Add(unit);
                     summoned = true;
                     GameLists.SummonZones.Add(this.gameObject);
@@ -43,8 +45,8 @@ public class Summon : MonoBehaviour {
                             zone.GetComponent<Summon>().canSummon = false;
                         }
                     }
-
-
+                    Destroy(GameLists.selectedCard);
+                    GameLists.selectedCard = null;
                 }
                 else
                 {
@@ -55,6 +57,16 @@ public class Summon : MonoBehaviour {
                     summoned = true;
                     //EndTurn.SummonZones.Add(this.gameObject);
                     //Debug.Log(camera.ScreenToWorldPoint(Input.mousePosition));
+                    foreach (GameObject zone in GameLists.EnemySummon)
+                    {
+                        Debug.Log(zone.name + "trying to see if false");
+                        if (zone.GetComponent<Summon>().canSummon)
+                        {
+                            zone.GetComponent<Summon>().canSummon = false;
+                        }
+                    }
+                    Destroy(GameLists.selectedCard);
+                    GameLists.selectedCard = null;
                 }
             }
         }

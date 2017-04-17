@@ -12,6 +12,7 @@ public class GameLists : MonoBehaviour {
     public static List<GameObject> Movement = new List<GameObject>();
     public static List<GameObject> DeckPlayer = new List<GameObject>();
     public static List<GameObject> DeckOpponent = new List<GameObject>();
+    public static GameObject selectedCard = null;
 
     // Use this for initialization
     void Start () {
