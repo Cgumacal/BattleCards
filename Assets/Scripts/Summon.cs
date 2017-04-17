@@ -30,7 +30,7 @@ public class Summon : MonoBehaviour {
                 {
                    
                     Debug.Log("Player Summon");
-                    GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
+                    GameObject unit = PhotonNetwork.Instantiate("leftplayer", this.transform.position, monster.transform.rotation, 0);
                     unit.GetComponent<Unit>().master = 1;
                     GameLists.PlayerUnits.Add(unit);
                     summoned = true;
@@ -49,7 +49,7 @@ public class Summon : MonoBehaviour {
                 else
                 {
                     Debug.Log("Enemy Summon");
-                    GameObject unit = Instantiate<GameObject>(monster, this.transform.position, monster.transform.rotation);
+                    GameObject unit = PhotonNetwork.Instantiate("rightplayer", this.transform.position, monster.transform.rotation, 0);
                     GameLists.EnemyUnits.Add(unit);
                     unit.GetComponent<Unit>().master = 2;
                     summoned = true;
