@@ -33,8 +33,8 @@ public class Summon : MonoBehaviour {
                     Debug.Log("Player Summon");
                     GameObject unit = PhotonNetwork.Instantiate("rightplayer", this.transform.position, monster.transform.rotation, 0);
                     unit.GetComponent<Unit>().master = 1;
-                    //unit.GetComponent<SpriteRenderer>().sprite = GameLists.selectedCard.GetComponent<Card>().monsterGraphic;
-                    //GameLists.PlayerUnits.Add(unit);
+                    unit.GetComponent<SpriteRenderer>().sprite = GameLists.selectedCard.GetComponent<Card>().monsterGraphic;
+                    GameLists.PlayerUnits.Add(unit);
                     summoned = true;
                     GameLists.SummonZones.Add(this.gameObject);
                     foreach (GameObject zone in GameLists.PlayerSummon)
@@ -52,7 +52,7 @@ public class Summon : MonoBehaviour {
                 {
                     Debug.Log("Enemy Summon");
                     GameObject unit = PhotonNetwork.Instantiate("leftplayer", this.transform.position, monster.transform.rotation, 0);
-                    //GameLists.EnemyUnits.Add(unit);
+                    GameLists.EnemyUnits.Add(unit);
                     unit.GetComponent<Unit>().master = 2;
                     summoned = true;
                     //EndTurn.SummonZones.Add(this.gameObject);

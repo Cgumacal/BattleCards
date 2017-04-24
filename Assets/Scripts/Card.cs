@@ -14,18 +14,6 @@ public class Card : MonoBehaviour
     public int attack;
     public int speed;
 
-    void Update()
-    {
-        if (PhotonNetwork.isMasterClient)
-        {
-            playerID = 1;
-        }
-        else
-        {
-            playerID = 2;
-        }
-    }
-
     public void selectCard()
     {
         Debug.Log("mouse as button up working");
