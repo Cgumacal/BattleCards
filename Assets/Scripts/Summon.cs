@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Summon : MonoBehaviour {
     public GameObject monster;
@@ -32,7 +33,8 @@ public class Summon : MonoBehaviour {
                     Debug.Log("Player Summon");
                     GameObject unit = PhotonNetwork.Instantiate("rightplayer", this.transform.position, monster.transform.rotation, 0);
                     unit.GetComponent<Unit>().master = 1;
-                    GameLists.PlayerUnits.Add(unit);
+                    //unit.GetComponent<SpriteRenderer>().sprite = GameLists.selectedCard.GetComponent<Card>().monsterGraphic;
+                    //GameLists.PlayerUnits.Add(unit);
                     summoned = true;
                     GameLists.SummonZones.Add(this.gameObject);
                     foreach (GameObject zone in GameLists.PlayerSummon)
@@ -43,18 +45,28 @@ public class Summon : MonoBehaviour {
                             zone.GetComponent<Summon>().canSummon = false;
                         }
                     }
-
-
+                    Destroy(GameLists.selectedCard);
+                    GameLists.selectedCard = null;
                 }
                 else
                 {
                     Debug.Log("Enemy Summon");
                     GameObject unit = PhotonNetwork.Instantiate("leftplayer", this.transform.position, monster.transform.rotation, 0);
-                    GameLists.EnemyUnits.Add(unit);
+                    //GameLists.EnemyUnits.Add(unit);
                     unit.GetComponent<Unit>().master = 2;
                     summoned = true;
                     //EndTurn.SummonZones.Add(this.gameObject);
                     //Debug.Log(camera.ScreenToWorldPoint(Input.mousePosition));
+                    foreach (GameObject zone in GameLists.EnemySummon)
+                    {
+                        Debug.Log(zone.name + "trying to see if false");
+                        if (zone.GetComponent<Summon>().canSummon)
+                        {
+                            zone.GetComponent<Summon>().canSummon = false;
+                        }
+                    }
+                    Destroy(GameLists.selectedCard);
+                    GameLists.selectedCard = null;
                 }
             }
         }

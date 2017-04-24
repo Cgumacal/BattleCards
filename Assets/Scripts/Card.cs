@@ -4,29 +4,76 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    public int playerID;
+    private int playerMana = 10;
+    public Sprite monsterGraphic;
+
     public string name;
     public int manaCost;
-    // Use this for initialization
+    public int health;
+    public int attack;
+    public int speed;
 
-    void Start()
-    {
-        name = null;
-        manaCost = 0;
-        Debug.Log(" card start");
-    }
-
-    // Update is called once per frame
     void Update()
     {
-
+        if (PhotonNetwork.isMasterClient)
+        {
+            playerID = 1;
+        }
+        else
+        {
+            playerID = 2;
+        }
     }
+
     public void selectCard()
     {
         Debug.Log("mouse as button up working");
-        foreach (GameObject zone in GameLists.PlayerSummon)
+        GameLists.selectedCard = this.gameObject;
+
+        if (manaCost <= playerMana)
         {
-            Debug.Log(zone.name + "trying to see if true");
-            if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true;
+            if (playerID == 1)
+            {
+                foreach (GameObject zone in GameLists.PlayerSummon)
+                {
+                    Debug.Log(zone.name + "trying to see if true");
+                    if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true;
+                }
+            }
+            else
+            {
+                foreach (GameObject zone in GameLists.EnemySummon)
+                {
+                    Debug.Log(zone.name + "trying to see if true");
+                    if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true;
+                }
+            }
+        }else
+        {
+            Debug.Log("Not enough mana");
+        }
+    }
+
+    public void deselectCard()
+    {
+        GameLists.selectedCard = this.gameObject;
+
+        if (playerID == 1)
+        {
+            foreach (GameObject zone in GameLists.PlayerSummon)
+            {
+                Debug.Log(zone.name + "trying to see if true");
+                if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = false;
+            }
+        }
+        else
+        {
+            foreach (GameObject zone in GameLists.EnemySummon)
+            {
+                Debug.Log(zone.name + "trying to see if true");
+                if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = false;
+            }
         }
     }
 }
