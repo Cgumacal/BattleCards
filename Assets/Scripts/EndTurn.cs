@@ -48,7 +48,7 @@ public class EndTurn : Photon.MonoBehaviour
     {
         if (playerEnd && enemyEnd)
         {
-            magicPhase();
+            setupPhase();
         }
     }
     
@@ -78,6 +78,44 @@ public class EndTurn : Photon.MonoBehaviour
             this.photonView.RPC("singleEndTurn", PhotonTargets.All);
         }
     }
+
+    //sets up lists for clients correctly
+
+    private void setupPhase()
+    {
+        Unit[] units = FindObjectsOfType<Unit>();
+        Player playerscript = ownedPlayer.GetComponent<Player>();
+        foreach (Unit unit in units)
+        {
+            if(playerscript.playerID == 1)
+            {
+                if(unit.master == 1)
+                {
+                    GameLists.PlayerUnits.Add(unit.gameObject);
+                }else
+                {
+                    unit.master = 2;
+                    GameLists.EnemyUnits.Add(unit.gameObject);
+                }
+            }else if(playerscript.playerID == 2)
+            {
+                if (unit.master == 2)
+                {
+                    GameLists.EnemyUnits.Add(unit.gameObject);
+                }
+                else
+                {
+                    unit.master = 1;
+                    GameLists.PlayerUnits.Add(unit.gameObject);
+                }
+            }
+        }
+        magicPhase();
+    }
+
+
+
+
     /// <summary>
     /// applies all of the magic cards that were played 
     /// </summary>
