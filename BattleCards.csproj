@@ -168,6 +168,7 @@
     <Compile Include="Assets\PhotonChatApi\ChatState.cs" />
     <Compile Include="Assets\PhotonChatApi\ChatUserStatus.cs" />
     <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
+    <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\RandomMatchmaking.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
@@ -178,6 +179,8 @@
     <Compile Include="Assets\Scripts\PsuedoCode.cs" />
     <Compile Include="Assets\Scripts\Summon.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\servertest.cs" />
+    <Compile Include="Assets\playerlists.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon Unity Networking\changelog.txt" />
