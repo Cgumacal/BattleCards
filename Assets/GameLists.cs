@@ -9,6 +9,10 @@ public class GameLists : MonoBehaviour {
     public static List<GameObject> SummonZones = new List<GameObject>();
     public static List<GameObject> PlayerSummon = new List<GameObject>();
     public static List<GameObject> EnemySummon = new List<GameObject>();
+	public static List<GameObject> PlayerTrap = new List<GameObject>();
+	public static List<GameObject> PlayerTrapSummon = new List<GameObject>();
+	public static List<GameObject> EnemyTrap = new List<GameObject>();
+	public static List<GameObject> EnemyTrapSummon = new List<GameObject>();
     public static List<GameObject> Movement = new List<GameObject>();
     public static List<GameObject> DeckPlayer = new List<GameObject>();
     public static List<GameObject> DeckOpponent = new List<GameObject>();
@@ -29,7 +33,22 @@ public class GameLists : MonoBehaviour {
             {
                 EnemySummon.Add(script.gameObject);
             }
-        }  
+        } 
+
+		Trap[] trapSummon = GameObject.FindObjectsOfType<Trap>();
+		foreach (Trap script in trapSummon)
+		{
+			SummonZones.Add(script.gameObject);
+			if (script.gameObject.transform.parent.name.Contains("Player"))
+			{
+				PlayerTrapSummon.Add(script.gameObject);
+				Debug.Log("added " + script.gameObject.name);
+			}
+			if (script.gameObject.transform.parent.name.Contains("Enemy"))
+			{
+				EnemyTrapSummon.Add(script.gameObject);
+			}
+		}
 	}
 
     [PunRPC]

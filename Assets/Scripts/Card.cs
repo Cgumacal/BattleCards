@@ -29,4 +29,13 @@ public class Card : MonoBehaviour
             if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true;
         }
     }
+
+	public void selectTrapCard(){
+		Debug.Log("mouse as button up working");
+		foreach (GameObject zone in GameLists.PlayerTrapSummon)
+		{
+			Debug.Log(zone.name + "trying to see if true");
+			if (!zone.GetComponent<Trap>().canSummon) zone.GetComponent<Trap>().canSummon = true;
+		}
+	}
 }
