@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/MVPRomeo.unity
+- path: Assets/Scenes/Deck Editor.unity
   isLoaded: 1
   isActive: 1

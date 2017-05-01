@@ -11,14 +11,15 @@ public class Drop : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
 
     public void OnDrop(PointerEventData eventData){
         Debug.Log(eventData.pointerDrag.name + "was dropped to " + gameObject.name);
+
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if(d != null)
+        if (d != null)
         {
-            d.originalPlace = this.transform;
-        }//checks if drop spot it a valid parent for the object. 
+            d.check_location = this.transform;
+        }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        Debug.Log("OnPointerExit" + gameObject.name);
     }
 }
