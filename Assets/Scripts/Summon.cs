@@ -71,6 +71,7 @@ public class Summon : MonoBehaviour {
             }
         }
     }
+
     public void resetSummon()
     {
         summoned = false;

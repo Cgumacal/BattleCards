@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class OnTrigger2DEnter : MonoBehaviour
 {
-    public GameObject winnerPanel;
-    public GameObject loserPanel;
-    public GameObject drawPanel;
-
     // Use this for initialization
     void Start()
     {
@@ -25,31 +21,23 @@ public class OnTrigger2DEnter : MonoBehaviour
     {
         Debug.Log(col.gameObject.name);
 
-        if (col.gameObject.name.Contains("player"))
+		//If enemy unit steps on player's trap
+		if ((col.gameObject.GetComponent<Unit>().master != 1) && (this.gameObject.name.Contains("playertrap")))
         {
-
-            GameLists.EnemyUnits.Remove(col.gameObject);
-            GameLists.PlayerUnits.Remove(col.gameObject);
-            Destroy(col.gameObject);
-
-            GetComponent<Unit>().health -= col.gameObject.GetComponent<Unit>().dmg;
-
-            if ((col.gameObject.name.Contains("leftplayer") && GetComponent<Unit>().health <= 0)
-                && (col.gameObject.name.Contains("rightplayer") && GetComponent<Unit>().health <= 0))
-            {
-                drawPanel.SetActive(true);
-            }
-            else if (col.gameObject.name.Contains("leftplayer") && GetComponent<Unit>().health <= 0)
-            {
-                loserPanel.SetActive(true);
-            }
-            else if (col.gameObject.name.Contains("rightplayer") && GetComponent<Unit>().health <= 0)
-            {
-                winnerPanel.SetActive(true);
-            }
-
-            Destroy(col.gameObject);
+			GameLists.EnemyUnits.Remove(col.gameObject); //remove enemy unit from list
+            Destroy(col.gameObject); //destroys enemy unit
+			GameLists.PlayerTrap.Remove(this.gameObject); //remove player trap from list
+			Destroy(this.gameObject); //destroys the trap that was stepped on
         }
+
+		//If player unit steps on enemy's trap
+		else if ((col.gameObject.GetComponent<Unit>().master != 2) && (this.gameObject.name.Contains("enemytrap")))
+		{
+			GameLists.PlayerUnits.Remove(col.gameObject); //remove player unit from list
+			Destroy(col.gameObject); //destroys player unit
+			GameLists.EnemyTrap.Remove(this.gameObject); //remove enemy trap from list
+			Destroy(this.gameObject); //destroys the trap that was stepped on
+		}
 
     }
 

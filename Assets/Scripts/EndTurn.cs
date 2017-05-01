@@ -119,7 +119,7 @@ public class EndTurn : Photon.MonoBehaviour
     /// <summary>
     /// applies all of the magic cards that were played 
     /// </summary>
-    private void magicPhase()
+    public void magicPhase()
     {
         //Debug.Log("magic phase");
         movementPhase();
@@ -163,7 +163,7 @@ public class EndTurn : Photon.MonoBehaviour
                         Debug.Log(unit.name);
                         doneMoving.Add(unit);
                     }
-                    else if (hit && !hit.transform.name.Contains("Zone") && !hit.transform.name.Contains("king") && hit.transform.GetComponent<Unit>().master != current.master || current.movementLeft == 0)
+					else if (hit && !hit.transform.name.Contains("Zone") && !hit.transform.name.Contains("king") && !hit.transform.name.Contains("Trap") && hit.transform.GetComponent<Unit>().master != current.master || current.movementLeft == 0)
                     {
                         //Debug.Log(Physics2D.Raycast(unit.transform.position, new Vector2(1, 0), 0.96f).transform.name);
                         current.movementLeft = 0;
@@ -253,7 +253,7 @@ public class EndTurn : Photon.MonoBehaviour
         {
             if (hit = Physics2D.Raycast(unit.transform.position, new Vector2(1, 0), 0.96f))
             {
-                if (hit.transform.name.Contains("Zone") || hit.transform.name.Contains("king"))
+				if (hit.transform.name.Contains("Zone") || hit.transform.name.Contains("Trap") ||hit.transform.name.Contains("king"))
                 {
                     //do nothing
                 }
@@ -351,7 +351,17 @@ public class EndTurn : Photon.MonoBehaviour
     {
         foreach (GameObject x in GameLists.SummonZones)
         {
-            x.GetComponent<Summon>().resetSummon();
+			//checks if it is the summon zone
+			if (x.GetComponent<Summon> ()) {
+				//resets summon zone to allow player to summon
+				x.GetComponent<Summon> ().resetSummon ();
+			}
+
+			//checks if it is the trap zone
+			if (x.GetComponent<Trap> ()) {
+				//resets trap zone to allow player to set a trap
+				x.GetComponent<Trap> ().resetSummon ();
+			}
         }
 
         playerEnd = false;
