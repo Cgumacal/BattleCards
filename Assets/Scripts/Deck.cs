@@ -15,14 +15,6 @@ public class Deck : MonoBehaviour
 	{
 		
 	}
-	void addCard(GameObject c)
-	{
-		if (count < 20) 
-		{
-			card.Add (c);
-			count++;
-		}
-	}
 	void shuffleDeck()
 	{
 		for (var i = 0; i < 1000; i++)
