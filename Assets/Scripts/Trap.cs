@@ -12,6 +12,7 @@ public class Trap : MonoBehaviour {
 	void Start () {
 		summoned = false;
 		canSummon = false;
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 	}
 
 	// Update is called once per frame
@@ -43,17 +44,26 @@ public class Trap : MonoBehaviour {
 							zone.GetComponent<Trap>().canSummon = false;
 						}
 					}
-
-
-				}
+                    Destroy(GameLists.selectedCard);
+                }
 				else
 				{
 					Debug.Log("Enemy Trap");
 					GameObject unit = PhotonNetwork.Instantiate("enemytrap", this.transform.position, monster.transform.rotation, 0);
 					GameLists.EnemyTrap.Add(unit);
 					unit.GetComponent<Unit>().master = 2;
-					summoned = true;
-				}
+                    summoned = true;
+                    GameLists.SummonZones.Add(this.gameObject);
+                    foreach (GameObject zone in GameLists.PlayerTrapSummon)
+                    {
+                        Debug.Log(zone.name + "trying to see if false");
+                        if (zone.GetComponent<Trap>().canSummon)
+                        {
+                            zone.GetComponent<Trap>().canSummon = false;
+                        }
+                    }
+                    Destroy(GameLists.selectedCard);
+                }
 			}
 		}
 	}
