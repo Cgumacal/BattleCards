@@ -31,10 +31,12 @@ public class Summon : MonoBehaviour {
                 {
                    
                     Debug.Log("Player Summon");
-                    GameObject unit = PhotonNetwork.Instantiate("rightplayer", this.transform.position, monster.transform.rotation, 0);
-                    unit.GetComponent<Unit>().master = 1;
+                    //GameObject unit = PhotonNetwork.Instantiate("rightplayer", this.transform.position, monster.transform.rotation, 0);
+                    GameObject unit = Instantiate(monster, transform.position, Quaternion.identity);
+                    unit.GetComponent<Unit>().unitName = GameLists.selectedCard.GetComponent<Card>().name;
                     //unit.GetComponent<SpriteRenderer>().sprite = GameLists.selectedCard.GetComponent<Card>().monsterGraphic;
-                    //GameLists.PlayerUnits.Add(unit);
+                    GameLists.ToBeInstantiated.Add(unit);
+                    unit.GetComponent<Unit>().master = 1;
                     summoned = true;
                     GameLists.SummonZones.Add(this.gameObject);
                     foreach (GameObject zone in GameLists.PlayerSummon)
@@ -51,8 +53,10 @@ public class Summon : MonoBehaviour {
                 else
                 {
                     Debug.Log("Enemy Summon");
-                    GameObject unit = PhotonNetwork.Instantiate("leftplayer", this.transform.position, monster.transform.rotation, 0);
-                    //GameLists.EnemyUnits.Add(unit);
+                    //GameObject unit = PhotonNetwork.Instantiate("leftplayer", this.transform.position, monster.transform.rotation, 0);
+                    GameObject unit = Instantiate(monster, transform.position, Quaternion.identity);
+                    unit.GetComponent<Unit>().unitName = GameLists.selectedCard.GetComponent<Card>().name;
+                    GameLists.ToBeInstantiated.Add(unit);
                     unit.GetComponent<Unit>().master = 2;
                     summoned = true;
                     //EndTurn.SummonZones.Add(this.gameObject);
@@ -77,4 +81,5 @@ public class Summon : MonoBehaviour {
         summoned = false;
     }
 
+ 
 }

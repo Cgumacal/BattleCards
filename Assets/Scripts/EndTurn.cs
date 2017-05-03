@@ -28,6 +28,12 @@ public class EndTurn : Photon.MonoBehaviour
     public bool enemyEnd = false;
     public bool hasEnded = false;
 
+    public bool playerInstantiated = false;
+    public bool enemyInstantiated = false;
+
+    private bool ran1 = false;
+    private bool ran2 = false;
+
     void Start()
     {
 		//Sets the max health that both players can have in a match
@@ -46,8 +52,14 @@ public class EndTurn : Photon.MonoBehaviour
 
     void Update()
     {
-        if (playerEnd && enemyEnd)
+        if (playerEnd && enemyEnd && !ran1)
         {
+            ran1 = true;
+            InstantiatePhase();
+        }
+        if (playerInstantiated && enemyInstantiated && !ran2)
+        {
+            ran2 = true;
             setupPhase();
         }
     }
@@ -70,6 +82,19 @@ public class EndTurn : Photon.MonoBehaviour
         }
     }
 
+    [PunRPC]
+    public void InstantiationDone()
+    {
+        if (!playerInstantiated)
+        {
+            playerInstantiated = true;
+        }
+        else
+        {
+            enemyInstantiated = true;
+        }
+    }
+
     public void endTurn()
     {
         if (!hasEnded)
@@ -81,10 +106,37 @@ public class EndTurn : Photon.MonoBehaviour
 
     //sets up lists for clients correctly
 
+    private void InstantiatePhase()
+    {
+        Player playerscript = ownedPlayer.GetComponent<Player>();
+        foreach (GameObject TBI in GameLists.ToBeInstantiated)
+        {
+            if (playerscript.playerID == 1)
+            {
+                GameObject unitTBI = PhotonNetwork.Instantiate(TBI.GetComponent<Unit>().unitName, TBI.transform.position, Quaternion.identity, 0);
+                unitTBI.GetComponent<Unit>().master = 1;
+                Destroy(TBI.gameObject);
+
+            }
+            else if (playerscript.playerID == 2)
+            {
+                GameObject unitTBI = PhotonNetwork.Instantiate(TBI.GetComponent<Unit>().unitName, TBI.transform.position, Quaternion.identity, 0);
+                unitTBI.GetComponent<Unit>().master = 2;
+                Destroy(TBI.gameObject);
+            }
+        }
+        GameLists.ToBeInstantiated.Clear();
+
+        StartCoroutine(buffer(0.05f));
+
+
+    }
+
     private void setupPhase()
     {
-        Unit[] units = FindObjectsOfType<Unit>();
         Player playerscript = ownedPlayer.GetComponent<Player>();
+        Unit[] units = FindObjectsOfType<Unit>();
+        
         foreach (Unit unit in units)
         {
             if(playerscript.playerID == 1)
@@ -367,6 +419,10 @@ public class EndTurn : Photon.MonoBehaviour
         playerEnd = false;
         enemyEnd = false;
         hasEnded = false;
+        playerInstantiated = false;
+        enemyInstantiated = false;
+        ran1 = false;
+        ran2 = false;
     }
 
 	//Calculates the enemy's remaining health for the health bar
@@ -402,4 +458,11 @@ public class EndTurn : Photon.MonoBehaviour
 			return calcPlayerHealth;
 		}
 	}
+
+    IEnumerator buffer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        this.photonView.RPC("InstantiationDone", PhotonTargets.All);
+    }
+
 }
