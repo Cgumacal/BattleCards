@@ -22,7 +22,7 @@ public class EndTurn : Photon.MonoBehaviour
 	public Slider enemyHealthBar;
 	public Text playerHealthBarText;
 	public Slider playerHealthBar;
-    private static GameObject ownedPlayer;
+    public static GameObject ownedPlayer;
 
     public bool playerEnd = false;
     public bool enemyEnd = false;
