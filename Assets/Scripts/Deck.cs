@@ -15,7 +15,7 @@ public class Deck : MonoBehaviour
 	{
 		
 	}
-	void shuffleDeck()
+	void shuffleDeck()//shuffles the deck in a random order
 	{
 		for (var i = 0; i < 1000; i++)
 		{
@@ -29,7 +29,7 @@ public class Deck : MonoBehaviour
 			}
 		}
 	}
-	void DrawTurn()
+	void DrawTurn()//makes sure they draw 2 and if the deck is less than 6, then it resets the deck
 	{
 		if (card.Count > 5) 
 		{
