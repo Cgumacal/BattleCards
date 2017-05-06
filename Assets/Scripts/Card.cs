@@ -35,33 +35,33 @@ public class Card : MonoBehaviour
     public void selectCard()
     {
         Debug.Log("mouse as button up working");
-        GameLists.selectedCard = this.gameObject;
+        GameLists.selectedCard = this.gameObject; //makes sure that the selected card is being referenced
 
-        if (manaCost <= player.GetComponent<Player>().mana)
+        if (manaCost <= player.GetComponent<Player>().mana) //checks to see if the player has sufficient mana to play the selected card
         {
-            if (playerID == 1)
+            if (playerID == 1) //if it's player 1, the left side, or "player side" of the board enables zones to be selected to summon the unit from the selected card
             {
-                foreach (GameObject zone in GameLists.PlayerSummon)
+                foreach (GameObject zone in GameLists.PlayerSummon) //loops through each of the "player" zones
                 {
                     Debug.Log(zone.name + "trying to see if true");
-                    if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true;
+                    if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true; //sets the "player" summon zones to allow a unit to be summoned
                 }
             }
-            else
+            else //if player id is not 1, the right side, or the "enemy side" of the board enables zones to be selected to summon the unit from the selected card
             {
-                foreach (GameObject zone in GameLists.EnemySummon)
+                foreach (GameObject zone in GameLists.EnemySummon) //loops through each of the "enemy" summon zones
                 {
                     Debug.Log(zone.name + "trying to see if true");
-                    if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true;
+                    if (!zone.GetComponent<Summon>().canSummon) zone.GetComponent<Summon>().canSummon = true; //ests the "enemy" summon ones to allow a unit to be summoned
                 }
             }
         }else
         {
-            Debug.Log("Not enough mana");
+            Debug.Log("Not enough mana");//error logged if player does not have sufficient mana to play the card
         }
     }
 
-    public void deselectCard()
+    public void deselectCard() // was supposed to reset all card status so that the player can deselect a card if they desired...this function is still being debugged
     {
         GameLists.selectedCard = this.gameObject;
 

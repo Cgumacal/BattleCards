@@ -13,9 +13,9 @@ public class Drop : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         Debug.Log(eventData.pointerDrag.name + "was dropped to " + gameObject.name);
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if (d != null)
+        if (d != null) //makes sure that the card is being dropped in an appropriate area.
         {
-            d.check_location = this.transform;
+            d.check_location = this.transform; //applies the changes to the parent of the card
         }
     }
     public void OnPointerExit(PointerEventData eventData)

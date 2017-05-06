@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/MVPRomeo.unity
+- path: Assets/Scenes/network with stuff.unity
   isLoaded: 1
   isActive: 1

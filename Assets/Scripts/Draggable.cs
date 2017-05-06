@@ -15,7 +15,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         originalPlace = this.transform.parent; //remembers what "area" the object came from
         this.transform.SetParent(this.transform.parent.parent); //sets the parent for the object being clicked'
-        Instantiate(this.gameObject, this.transform.position, Quaternion.identity,originalPlace);
+        Instantiate(this.gameObject, this.transform.position, Quaternion.identity,originalPlace);//creates a copy of the game object...mainly to be used in the deck editor
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
@@ -30,13 +30,13 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
        Debug.Log("OnEndDrag" + this.transform.parent);
-        if (check_location != originalPlace)
+        if (check_location != originalPlace)//checks to see if the location the card is coming from is not the same place it came from
         {
-             this.transform.SetParent(check_location);
+             this.transform.SetParent(check_location);//if so, it is rooted to the location that it was in
         }
         else
         {
-           Destroy(this.gameObject);
+           Destroy(this.gameObject);//if not, it is destroyed
         }
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
