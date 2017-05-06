@@ -32,6 +32,7 @@ public class Card : MonoBehaviour
         }
     }
 
+    //A card display with this method would enable the user to select a unit/monster card
     public void selectCard()
     {
         Debug.Log("mouse as button up working");
@@ -83,12 +84,15 @@ public class Card : MonoBehaviour
         }
     }
 
+	//A card display with this method would enable the user to select a trap card
 	public void selectTrapCard(){
+		//sets the boolean canSummon in Trap script as true as a trap can be summoned on the field
 		Debug.Log("mouse as button up working");
 		foreach (GameObject zone in GameLists.PlayerTrapSummon)
 		{
 			Debug.Log(zone.name + "trying to see if true");
-			if (!zone.GetComponent<Trap>().canSummon) zone.GetComponent<Trap>().canSummon = true;
+			if (!zone.GetComponent<Trap>().canSummon) 
+				zone.GetComponent<Trap>().canSummon = true;
 		}
 	}
 }
