@@ -183,6 +183,7 @@
     <Compile Include="Assets\Scripts\Trap.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\servertest.cs" />
+    <Compile Include="Assets\calculateMana.cs" />
     <Compile Include="Assets\playerlists.cs" />
   </ItemGroup>
   <ItemGroup>

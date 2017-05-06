@@ -8,14 +8,13 @@ public class Summon : MonoBehaviour {
     public Camera camera;
     public bool summoned;
     public bool canSummon;
-    private GameObject player;
     public int manaCost;
 
     // Use this foinitialization
     void Start () {
         summoned = false;
         canSummon = false;
-        player = EndTurn.ownedPlayer;
+        
     }
 	
 	// Update is called once per frame
@@ -52,7 +51,7 @@ public class Summon : MonoBehaviour {
                     }
                     Destroy(GameLists.selectedCard);
                     manaCost = GameLists.selectedCard.GetComponent<Card>().manaCost;
-                    player.GetComponent<Player>().subtractMana(manaCost);
+                    EndTurn.ownedPlayer.GetComponent<Player>().subtractMana(manaCost);
                     GameLists.selectedCard = null;
                 }
                 else
@@ -76,7 +75,7 @@ public class Summon : MonoBehaviour {
                     }
                     Destroy(GameLists.selectedCard);
                     manaCost = GameLists.selectedCard.GetComponent<Card>().manaCost;
-                    player.GetComponent<Player>().subtractMana(manaCost);
+                    EndTurn.ownedPlayer.GetComponent<Player>().subtractMana(manaCost);
                     GameLists.selectedCard = null;
                 }
             }

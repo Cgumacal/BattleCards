@@ -13,11 +13,11 @@ public class Card : MonoBehaviour
     public int health;
     public int attack;
     public int speed;
-    private GameObject player;
+
 
     void Start()
     {
-        player = EndTurn.ownedPlayer;  
+          
     }
 
     void Update()
@@ -37,7 +37,7 @@ public class Card : MonoBehaviour
         Debug.Log("mouse as button up working");
         GameLists.selectedCard = this.gameObject;
 
-        if (manaCost <= player.GetComponent<Player>().mana)
+        if (manaCost <= EndTurn.ownedPlayer.GetComponent<Player>().mana)
         {
             if (playerID == 1)
             {

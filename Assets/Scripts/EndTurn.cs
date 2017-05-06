@@ -42,6 +42,7 @@ public class EndTurn : Photon.MonoBehaviour
 		enemyHealthBar.value = CalculatedEnemyHealth();
 		//Player health bar shows initial value of health at the start of the match
 		playerHealthBar.value = CalculatedPlayerHealth();
+        
 
     }
 
