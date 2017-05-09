@@ -10,7 +10,7 @@ public class GlobalControl : MonoBehaviour {
 
     void Awake()
     {
-        if(Instance == null)
+        if(Instance == null) //if there is a list, the object is not destroyed
         {
             DontDestroyOnLoad(gameObject);
             Instance = this; 
