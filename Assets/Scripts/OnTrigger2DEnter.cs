@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//This script is for the traps on the game field, it would destroy the trap and unit
+//if the unit lands on the trap.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +19,7 @@ public class OnTrigger2DEnter : MonoBehaviour
 
     }
 
-    //Player unit collides with the king and gets destroyed
+    //Unit collides with the trap and both unit and trap get destroyed
     void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log(col.gameObject.name);
