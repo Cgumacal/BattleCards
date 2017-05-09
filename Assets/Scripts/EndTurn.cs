@@ -46,6 +46,7 @@ public class EndTurn : Photon.MonoBehaviour
 
     }
 
+    //Used to tell the client which player is its own player
     public static void setOwnedPlayer(GameObject player)
     {
         ownedPlayer = player;
@@ -53,11 +54,13 @@ public class EndTurn : Photon.MonoBehaviour
 
     void Update()
     {
+        //waits until both players hit their end turn button to start the end function 
         if (playerEnd && enemyEnd && !ran1)
         {
             ran1 = true;
             InstantiatePhase();
         }
+        //waits until all of the units are instantiated to continue the end phase
         if (playerInstantiated && enemyInstantiated && !ran2)
         {
             ran2 = true;
@@ -67,7 +70,8 @@ public class EndTurn : Photon.MonoBehaviour
     
 
     /// <summary>
-    /// This function is called after both players hit end turn
+    /// This function is a server function that changes the end variable to true
+    /// for the check
     /// </summary>
     /// 
     [PunRPC]
@@ -83,6 +87,9 @@ public class EndTurn : Photon.MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Another server function to check when all of the units are instantiated 
+    /// </summary>
     [PunRPC]
     public void InstantiationDone()
     {
@@ -96,6 +103,9 @@ public class EndTurn : Photon.MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// this function is called by the client to call the server function 
+    /// </summary>
     public void endTurn()
     {
         if (!hasEnded)
@@ -105,14 +115,15 @@ public class EndTurn : Photon.MonoBehaviour
         }
     }
 
-    //sets up lists for clients correctly
-
+    /// <summary>
+    /// Instantiates all of the units over the server so that all units can be seen by both players 
+    /// </summary>
     private void InstantiatePhase()
     {
         Player playerscript = ownedPlayer.GetComponent<Player>();
-        foreach (GameObject TBI in GameLists.ToBeInstantiated)
+        foreach (GameObject TBI in GameLists.ToBeInstantiated)//goes through the list of units to be instantiated
         {
-            if (playerscript.playerID == 1)
+            if (playerscript.playerID == 1)//instantiates the server object then destroys the placeholder object for both players 
             {
                 GameObject unitTBI = PhotonNetwork.Instantiate(TBI.GetComponent<Unit>().unitName, TBI.transform.position, Quaternion.identity, 0);
                 unitTBI.GetComponent<Unit>().master = 1;
@@ -128,11 +139,14 @@ public class EndTurn : Photon.MonoBehaviour
         }
         GameLists.ToBeInstantiated.Clear();
 
-        StartCoroutine(buffer(0.05f));
+        StartCoroutine(buffer(0.05f));//short buffer to allow time to instantiate all of the objects before it continues on
 
 
     }
 
+    /// <summary>
+    /// Sets up the lists client side to make sure the rest of the end phase continues correctly on both clients 
+    /// </summary>
     private void setupPhase()
     {
         Player playerscript = ownedPlayer.GetComponent<Player>();
@@ -202,13 +216,6 @@ public class EndTurn : Photon.MonoBehaviour
                 {
 
                     hit = Physics2D.Raycast(unit.transform.position, new Vector2(1, 0), 0.96f);
-                    /*if (hit && hit.transform.name.Contains ("king")) {
-						enemyKing.GetComponent<Unit> ().health -= current.dmg;
-						GameLists.PlayerUnits.Remove(unit);
-						movement.Remove(unit);
-						Destroy(unit);
-					}*/
-
                     if (hit && hit.transform.name.Contains("king"))
                     {
                         //add unit to kingDamage list
@@ -245,8 +252,8 @@ public class EndTurn : Photon.MonoBehaviour
 
                         doneMoving.Add(unit);
                     }
-                    else if (hit && !hit.transform.name.Contains("Zone") && !hit.transform.name.Contains("king") && hit.transform.GetComponent<Unit>().master != current.master || current.movementLeft == 0)
-                    {
+                    else if (hit && !hit.transform.name.Contains("Zone") && !hit.transform.name.Contains("king") && !hit.transform.name.Contains("Trap") && hit.transform.GetComponent<Unit>().master != current.master || current.movementLeft == 0)                    
+                    { 
                         //Debug.Log(Physics2D.Raycast(unit.transform.position, new Vector2(-1, 0), 0.96f).transform.name);
                         current.movementLeft = 0;
                         doneMoving.Add(unit);
@@ -271,20 +278,7 @@ public class EndTurn : Photon.MonoBehaviour
                 movement.Remove(unit);
             }
         }
-        //TODO change this to go through a list and move the pieces one space at a time until they have all moved completely
-        //Add all units to a move list
-        //while list is not empty
-        //if owner = 0 
-        //raycast 2 spaces if hit enemy movement = 0
-        //add to battle list
-        // else move units to the right 
-        //else if owner = 1
-        //raycast 2 spaces if hit player movement = 0
-        //add to battle list 
-        //else move units to the left 
-        //movement decrement by 1 
-        //cycle through list if movement = 0 remove from move list
-
+        
         Debug.Log("movement ends");
         battlePhase();
     }
@@ -368,10 +362,10 @@ public class EndTurn : Photon.MonoBehaviour
     /// </summary>
     private void unitAbilityPhase()
     {
-        Unit[] units = FindObjectsOfType<Unit>();
-        foreach (Unit unit in units)
+        Ability[] units = FindObjectsOfType<Ability>();
+        foreach (Ability unit in units)
         {
-
+            unit.effects();
         }
 
         victoryCheck();
@@ -415,6 +409,7 @@ public class EndTurn : Photon.MonoBehaviour
 				//resets trap zone to allow player to set a trap
 				x.GetComponent<Trap> ().resetSummon ();
 			}
+            ownedPlayer.GetComponent<Player>().resetMana();
         }
 
         playerEnd = false;

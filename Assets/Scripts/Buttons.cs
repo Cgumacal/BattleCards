@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour {
 
@@ -16,17 +17,18 @@ public class Buttons : MonoBehaviour {
 
     public void ToMainMenu()
     {
-        Application.LoadLevel("Main Menu");
+        SceneManager.LoadScene("Main Menu");
+        //Application.LoadLevel("Main Menu");
     }
 
     public void ToDeckEditor()
     {
-
+        SceneManager.LoadScene("Deck Editor");
     }
 
     public void ToPlay()
     {
-        Application.LoadLevel("MVP");
+        SceneManager.LoadScene("Matchmaking");
     }
 
     public void ToLogin()

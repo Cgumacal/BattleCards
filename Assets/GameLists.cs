@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameLists : MonoBehaviour {
-
+    //various lists that are used by the game system. 
     public static List<GameObject> PlayerUnits = new List<GameObject>();
     public static List<GameObject> EnemyUnits = new List<GameObject>();
     public static List<GameObject> SummonZones = new List<GameObject>();
@@ -24,6 +24,7 @@ public class GameLists : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //adds the various zones to the correct lists this would be used when the screen highlights happen
         Summon[] summon = GameObject.FindObjectsOfType<Summon>();
         foreach (Summon script in summon)
         {
@@ -54,17 +55,4 @@ public class GameLists : MonoBehaviour {
 			}
 		}
 	}
-
-    [PunRPC]
-    void addPlayer(GameObject x)
-    {
-        PlayerUnits.Add(x);
-    }
-
-    void addEnemy(GameObject x)
-    {
-        EnemyUnits.Add(x);
-    }
-	
-
 }
